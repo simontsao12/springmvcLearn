@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>首頁</title>
+</head>
+<body>
+<div id="app">
+    <h1>index.html</h1>
+    <input type="button" value="測試SpringMVC處理ajax" @click="testAjax()"><br>
+    <input type="button" value="使用@RequestBody註解處理json格式的請求參數" @click="testRequestBody()"><br>
+    <a th:href="@{/test/ResponseBody}">測試@ResponseBody註解回應瀏覽器資料</a><br>
+    <input type="button" value="使用@ResponseBody註解回應json格式的資料" @click="testResponseBody()"><br>
+    <a th:href="@{/test/down}">下載圖片</a>
+    <form th:action="@{/test/up}" method="post" enctype="multipart/form-data">
+        頭像：<input type="file" name="photo"><br>
+        <input type="submit" value="上傳">
+    </form>
+</div>
+
+<script type="text/javascript" th:src="@{/js/vue.js}"></script>
+<script type="text/javascript" th:src="@{/js/axios.min.js}"></script>
+<script type="text/javascript">
+
+    /**
+     * axios({
+     url:"",//請求路徑
+     method:"",//請求方式
+     //以name=value&name=value的方式傳送的請求參數
+     //不管使用的請求方式是get或post，請求參數都會被拼接到請求位址後
+     //此種方式的請求參數可以透過request.getParameter()取得
+     params:{},
+     //以json格式傳送的請求參數
+     //請求參數會被儲存到請求訊息的請求體傳送到伺服器，注意:get沒有請求體
+     //此種方式的請求參數不可以透過request.getParameter()取得
+     data:{}
+     }).then(response=>{
+     console.log(response.data);
+     });
+     */
+
+    var vue = new Vue({
+        el:"#app",
+        methods:{
+            testAjax(){
+                axios.post(
+                    "/spring_mvc04_ajax/test/ajax?id=1001",
+                    //此絕對路徑是由瀏覽器解析的，故前面須加上上下文路徑SpringMVC
+                    //注意: js代碼中也無法使用@{/...}Thymeleaf表達式
+                    {username:"admin",password:"123456"}
+                ).then(response=>{ // response 是將伺服器響應的結果封裝到 response.data 屬性中
+                    console.log(response.data);
+                });
+            },
+            testRequestBody(){
+                axios.post(
+                    "/spring_mvc04_ajax/test/RequestBody/json",
+                    {username:"admin",password:"123456",age:23,gender:"男"}
+                ).then(response=>{
+                    console.log(response.data);
+                });
+            },
+            testResponseBody(){
+                axios.post("/spring_mvc04_ajax/test/ResponseBody/json").then(response=>{
+                    console.log(response.data);
+                });
+            }
+        }
+    });
+</script>
+</body>
+</html>

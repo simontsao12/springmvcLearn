@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http:www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>首頁</title>
+</head>
+<body>
+<h1>index.html</h1>
+<a th:href="@{/hello}">測試 @RequestMapping 註解所標示的位置 /hello</a>
+<br>
+<a th:href="@{/abc}">測試 @RequestMapping 註解所標示的 value 屬性 對應位置 /abc</a>
+<br>
+<a th:href="@{/test/hello}">測試 @RequestMapping 註解所標示的位置 /test/hello</a>
+<form th:action="@{/hello}" method="post">
+    <input type="submit" value="測試 @RequestMapping 註解的 method 屬性"/>
+</form>
+<form th:action="@{/hello}" method="post">
+    <input type="text" name="username" value="測試" />
+    <input type="submit" value="測試 @RequestMapping 註解的 params 屬性"/>
+</form>
+<br>
+<a th:href="@{/hello?username=admin}">測試 @RequestMapping 註解的 params 屬性</a>
+<br>
+<a th:href="@{/hello(username='admin')}">測試 @RequestMapping 註解的 params 屬性</a>
+<br>
+<a th:href="@{/ada/test/ant}">測試 @RequestMapping 支持 ant 風格路徑</a>
+<br>
+<a th:href="@{/test/rest/admin/1}">測試 @RequestMapping 註解的 value 屬性中的佔位符</a>
+<hr>
+<form th:action="@{/param}" method="post">
+    帳號: <input type="text" name="username" />
+    密碼: <input type="password" name="password" />
+    <input type="submit" value="登入"/>
+</form>
+<form th:action="@{/param/pojo}" method="post">
+    帳號: <input type="text" name="username" />
+    密碼: <input type="password" name="password" />
+    <input type="submit" value="登入"/>
+</form>
+<hr>
+<a th:href="@{/test/mav}">測試透過 ModelAndView 向請求範圍共享資料</a>
+<br>
+<a th:href="@{/test/model}">測試透過 Model 向請求範圍共享資料</a>
+<br>
+<a th:href="@{/test/modelMap}">測試透過 ModelMap 向請求範圍共享資料</a>
+<br>
+<a th:href="@{/test/map}">測試透過 map 向請求範圍共享資料</a>
+<br>
+<a th:href="@{/test/session}">測試向會話範圍共享資料</a>
+<br>
+<a th:href="@{/test/application}">測試透過向應用範圍共享資料</a>
+<hr>
+<a th:href="@{/test/view/thymeleaf}">測試 SpringMVC 的視圖 ThymeleafView</a>
+<br>
+<a th:href="@{/test/view/forward}">測試 SpringMVC 的視圖 InternalResourceView</a>
+<br>
+<a th:href="@{/test/view/redirect}">測試 SpringMVC 的視圖 RedirectView</a>
+</body>
+</html>
